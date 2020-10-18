@@ -1,0 +1,79 @@
+{% extends "basic.html" %}
+{% block content %}
+
+    
+	 <h6 style="text-align: right;color: rgb(158, 55, 237);">Todos Count: {{ todos.total }}</h6>
+ 	
+ 	{% for todo in todos.items %}
+
+         <div class="card text-center" style="margin-top: 10%; width:100%;height: 280px;margin-left:50px">
+  			<div class="card-header bg-info">
+    			{{todo.name}}
+  			</div>
+ 		 	<div class="card-body" style="background-image: url('static/bg_todos.jpg') ">
+	    		 <h4 class="card-text" style="text-align: left;width: 80%;white-space: nowrap;overflow: hidden;text-overflow:ellipsis;" >{{ todo.description }}</h4>
+	    		
+	    	
+				  <br/>
+				  	<div>
+					  	<label> Completed : </label>
+					    {{todo.completed}}
+					</div>
+					<div class="row" style="margin-left: 290px">
+					  	<label> Priority : </label>
+					    	   {% if todo.priority == '1' %}
+	       						 <h5>High</h5>
+	       					   {% elif todo.priority == '2' %}
+	       					   	  <h5>Medium</h5>
+	       					   {% elif todo.priority == '3' %}
+	       					   	  <h5>Low</h5>
+	    					   {% endif %}
+
+				    </div>
+				  
+				   <a href="{{ url_for('getTodo', todo_id=todo.id) }}"  class="btn btn-warning" style="bottom: 1000px">View Task</a>
+  			</div>
+	  		<div class="card-footer  bg-info" style="text-align: left">
+	    		created on: {{ todo.date_created.strftime('%Y-%m-%d') }}  &nbsp;&nbsp;&nbsp;&nbsp;{{ todo.owner.userName }}
+	    		{% if todo.updated_on %}
+	    		<h6 style="text-align: right;margin-top: -20px">updated on: {{ todo.updated_on.strftime('%Y-%m-%d') }} </h6>
+	    		{% else %}
+	    		<h6 style="text-align: right;margin-top: -20px">updated on:
+	    		{% endif %}
+
+
+	  		</div>
+
+		</div>
+      
+
+	{% endfor %}
+
+
+
+
+<br/>
+<br/> 
+	{% for page_num in todos.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+      {% if page_num %}
+        {% if todos.page == page_num %}
+        
+          <button class="btn btn-info mt-4" onclick="window.location.href ='{{ url_for('sort', page=page_num) }}' ">{{ page_num }}</button>
+      
+        {% else %}
+
+          <button class="btn btn-outline-info mt-4" style="background-color: lightblue;  color: black;  
+font-size: 25px;  margin: auto; " onclick="window.location.href ='{{ url_for('sort', page=page_num) }}' ">{{ page_num }}</button>
+
+        {% endif %}
+        {% else %}
+        ...
+      {% endif %}
+    {% endfor %}
+    
+<br/>
+<br/>
+<br/>
+<br/>
+{% endblock content %}
+

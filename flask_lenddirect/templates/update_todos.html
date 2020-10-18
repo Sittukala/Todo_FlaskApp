@@ -1,0 +1,76 @@
+{% extends "basic.html" %}
+{% block content %}
+<div class="container">
+	<div class="d-flex justify-content-center h-100">
+		<div class="card" style="width:100%;margin-top: 50px; background-image: url('/static/bg_todos.jpg'); color: white;
+     height: 800px; padding: 100px 0 0 0; "">
+			<div class="card-header">
+				<h3>Update Your Todo Item</h3>
+				
+			</div>
+			<div class="card-body">
+					<form method="POST" action="">
+	 					{{ form.hidden_tag() }}
+	            		 <fieldset class="form-group">
+	                	
+
+	               			   <div class="form-group">
+	                    			{{ form.name.label(class="form-control-label") }}
+	                   			 	{% if form.name.errors %}
+	                        			{{ form.name(class="form-control form-control-lg is-invalid") }}
+	                        			<div class="invalid-feedback">
+	                            			{% for error in form.name.errors %}
+	                               			 	<span>{{ error }}</span>
+	                            			{% endfor %}
+	                        			</div>
+	                    			{% else %}
+	                        			{{ form.name(class="form-control form-control-lg") }}
+	                    			{% endif %}
+	                			</div>
+	                			<div class="form-group">
+	                   				 {{ form.description.label(class="form-control-label") }}
+	                    			 {% if form.description.errors %}
+	                        			{{ form.description(class="form-control form-control-lg is-invalid") }}
+	                       					 <div class="invalid-feedback">
+	                            				{% for error in form.description.errors %}
+	                                				<span>{{ error }}</span>
+	                            				{% endfor %}
+	                        				 </div>
+	                    			{% else %}
+	                        			{{ form.description(class="form-control form-control-lg") }}
+	                    			{% endif %}
+	               				</div>
+	               				<div class="form-group">
+	                   				 {{ form.priority.label(class="form-control-label") }}
+	                    			 {% if form.priority.errors %}
+	                        			{{ form.priority(class="form-control form-control-lg is-invalid") }}
+	                       					 <div class="invalid-feedback">
+	                            				{% for error in form.priority.errors %}
+	                                				<span>{{ error }}</span>
+	                            				{% endfor %}
+	                        				 </div>
+	                    			{% else %}
+	                        			{{ form.priority(class="form-control form-control-lg") }}
+	                    			{% endif %}
+	               				</div>
+	               				<br/>	
+	               				<div class="form-group">
+	               					<div class="row">
+	               					{{ form.completed}}
+	                   				 &nbsp; &nbsp;{{ form.completed.label }}
+	                    			</div> 
+	                    			
+	               				</div>
+					
+					</fieldset>
+	            		<div class="form-group">
+	                		{{ form.submit(class="btn btn-outline-info") }}
+	           			</div>           		
+	           		</form>
+			</div>
+			
+		
+	</div>
+</div>
+
+{% endblock content %}
